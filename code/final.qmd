@@ -1,8 +1,32 @@
 ---
 title: "Final"
 author: "Sara Gonzalez"
-format: html
-editor: visual
+format:
+  html:
+    toc: true
+    toc-location: left
+    code-fold: true
+execute:
+  message: false
+  warning: false
 ---
 
-## 
+# Problem 1
+
+## Introduction
+
+## Methods
+
+## Results 
+
+## References
+
+# Problem 2
+
+## Introduction
+
+## Methods
+
+## Results
+
+## References
