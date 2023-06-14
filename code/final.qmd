@@ -1,6 +1,7 @@
 ---
 title: "Final"
 author: "Sara Gonzalez"
+date: June 16, 2023
 format:
   html:
     toc: true
@@ -15,11 +16,19 @@ execute:
 
 ## Introduction
 
+Disturbance is a major factor determining the plant community structure of ecological systems. Kangaroo rat (*Dipodomys spectabilis*) mounds are small-scale disturbances that support unique plant communities compared to surrounding habitats. These disturbances can affect the seed bank, an overlooked part of plant communities and an important trait of some plant species that allows for their persistence in unpredictable environments (Koontz & Simpson, 2013). Many might care about these seed bank disturbances because *D. spectabilis* manages the structure of microbial communities (Herrera et al., 2001). These microbes have the ability to recycle the primary elements that make up all living systems, especially carbon, nitrogen, and oxygen, three elements that are vital to not only plant communities, but also to animals and humans (Gupta et al., 2016). It could be useful to find how total seed number differs between kangaroo rat mound locations because it could demonstrate a relationship that tells us more about how a plant community is doing in a certain rat mound location as well as whether it is doing better or worse than other plant communities in other rat mound locations. The question I am trying to answer is: How does total seed number differ between kangaroo rat mound locations? The null hypothesis is that total seed number doesn't differ between kangaroo rat mound locations. The alternative hypothesis states the opposite, that total seed number does differ between kangaroo rat mound locations.
+
 ## Methods
 
 ## Results 
 
 ## References
+
+Gupta, A., Gupta, R., & Singh, R. L. (2016). Microbes and environment. *Principles and Applications of Environmental Biotechnology for a Sustainable Future*, 43--84. <https://doi.org/10.1007/978-981-10-1866-4_3>
+
+Herrera, J., Ensz, K. L., & Wilke, A. L. (2001). Stacking of seeds changes spoilage dynamics of food caches of the banner-tailed kangaroo rat (Dipodomys spectabilis). *Journal of Mammalogy*, *82*(2), 558--566. <https://doi.org/10.1093/jmammal/82.2.558>
+
+Koontz, T. L., & Simpson, H. L. (2010). The composition of seed banks on kangaroo rat (Dipodomys spectabilis) mounds in a chihuahuan desert grassland. *Journal of Arid Environments*, *74*(10), 1156--1161. <https://doi.org/10.1016/j.jaridenv.2010.03.008>
 
 # Problem 2
 
