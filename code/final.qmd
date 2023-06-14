@@ -34,7 +34,7 @@ Koontz, T. L., & Simpson, H. L. (2010). The composition of seed banks on kangaro
 
 ## Introduction
 
-Climate-change induced alterations in environmental conditions in the alpine tundra has led to "shrubification," the expansion of woody shrubs. Shrubification is thought to change microclimatic conditions, potentially leading to changes in plant community composition (Seaver, 2022).
+Climate-change induced alterations in environmental conditions in the alpine tundra has led to "shrubification," the expansion of woody shrubs. Shrubification is thought to change microclimatic conditions that could lead to changes in plant community composition, including seed count and weight (Seaver, 2022). Both of these factors, especially seed weight, are significant because seed weight is generally assumed to be an ecologically important life history trait in plants because it influences both dispersal ability and seedling establishment (Gross & Kromer, 1986). Additionally, seed count can be a way to determine fitness and reproductive success (Zimmerman, 1980). It could be useful to find how certain characteristics vary seed count because they could impact reproductive success in plant communities. If certain factors make reproductive success decline, it could bring harm to impacted plant communities especially those containing endangered species. The questions I am trying to answer are how seed count varies with plot type (shrub or open), plant species, and total number of inflorescences as well as what is the simplest model that explains seed count. The hypothesis being tested is that seed count does not vary with plot type.
 
 ## Methods
 
@@ -42,4 +42,8 @@ Climate-change induced alterations in environmental conditions in the alpine tun
 
 ## References
 
-Seaver, M. 2022. Individual and community flowering phenology, seed counts and pollinator visitation rates in shrub and open plots across Niwot Ridge, 2019 - 2021. ver 1. Environmental Data Initiative. <https://doi.org/10.6073/pasta/edc4ab2faf7dd96cd1deac1544d5f2b9> (Accessed 2023-06-14).
+Gross, K. L., & Kromer, M. L. (1986). Seed Weight Effects on Growth and Reproduction in Oenothera biennis L. *Bulletin of the Torrey Botanical Club*, *113*(3), 252--258. <https://doi.org/10.2307/2996364>
+
+Seaver, M. 2022. Individual and community flowering phenology, seed counts and pollinator visitation rates in shrub and open plots across Niwot Ridge, 2019 - 2021. ver 1. Environmental Data Initiative. <https://doi.org/10.6073/pasta/edc4ab2faf7dd96cd1deac1544d5f2b9>
+
+Zimmerman, M. (1980). Reproduction in polemonium: Pre-dispersal seed predation. *Ecology*, *61*(3), 502--506. <https://doi.org/10.2307/1937415> 
