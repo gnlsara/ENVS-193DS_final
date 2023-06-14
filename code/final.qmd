@@ -34,8 +34,12 @@ Koontz, T. L., & Simpson, H. L. (2010). The composition of seed banks on kangaro
 
 ## Introduction
 
+Climate-change induced alterations in environmental conditions in the alpine tundra has led to "shrubification," the expansion of woody shrubs. Shrubification is thought to change microclimatic conditions, potentially leading to changes in plant community composition (Seaver, 2022).
+
 ## Methods
 
 ## Results
 
 ## References
+
+Seaver, M. 2022. Individual and community flowering phenology, seed counts and pollinator visitation rates in shrub and open plots across Niwot Ridge, 2019 - 2021. ver 1. Environmental Data Initiative. <https://doi.org/10.6073/pasta/edc4ab2faf7dd96cd1deac1544d5f2b9> (Accessed 2023-06-14).
