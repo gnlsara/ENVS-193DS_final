@@ -6,4 +6,4 @@ This repository includes the code and rendered html document for the responses t
 
 The second data set was the Seed Counts & Weights data set collected by Micaela Seaver for their work "Individual and community flowering phenology, seed counts and pollinator visitation rates in shrub and open plots across Niwot Ridge, 2019 - 2021." Like the first data set, this data set is also from the EDI portal. More information can be found [here](https://portal.edirepository.org/nis/mapbrowse?packageid=knb-lter-nwt.297.1). This data set was used to determine how seed count varies with plot type (shrub or open), plant species, and total number of inflorescences. It was also used to determine whether there is a simpler model that explains seed count. 
 
-This is a public repository and the rendered html can be found [here]()
+This is a public repository and the rendered html can be found [here](https://gnlsara.github.io/ENVS-193DS_final/code/final.html)
