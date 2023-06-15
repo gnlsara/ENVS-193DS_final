@@ -184,6 +184,38 @@ simulateResiduals(scmod2, plot = TRUE) # look better but significant deviation, 
 simulateResiduals(scmod3, plot = TRUE)
 ```
 
+```{r choosing-model}
+MuMIn::model.sel(scmod1, scmod2, scmod3) # 100% chance of best model = 1 (weight)
+```
+
+```{r summaries}
+# model object
+scmod3
+
+# summary (z value = test stat based on z dist.)
+summary(scmod3)
+  # cover is potentially not significant, sppDM, sppEC-L as well keeping everything else constant
+# confidence intervals
+confint(scmod3)
+
+# adjusted R2
+r.squaredGLMM(scmod3) # only look at delta, amount of variance = 43%
+# fairly low due to 3 different predictors
+```
+
+```{r visualization}
+#| fig.width: 12
+#| fig.height: 10
+#| out.width: 90%
+#| fig.align: center
+
+plot(ggpredict(scmod3, terms = c("treatment", "total_nr_infl")), add.data = TRUE)
+
+plot(ggpredict(scmod3, terms = c("treatment", "total_nr_infl", "species")), add.data = TRUE)+
+  theme_classic()
+# cover has no significant effect on salamander count, but mined status and species do
+```
+
 ## Results
 
 ## References
