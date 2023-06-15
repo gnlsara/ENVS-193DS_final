@@ -23,6 +23,17 @@ Disturbance is a major factor determining the plant community structure of ecolo
 ### Set-up: Loading Needed Packages
 
 ```{r load-packages}
+library(MASS) # have to read this in before tidyverse 
+library(lme4)
+library(glmmTMB) # ok if you don't have this - just comment it out
+
+# diagnostics and model info
+library(DHARMa)
+library(MuMIn)
+library(ggeffects)
+library(lmtest) 
+library(broom)
+# other packages
 library(tidyverse)
 library(here)
 library(janitor)
@@ -151,7 +162,27 @@ ggpairs(seedcount_pairs) + # creates pairs plot
 
 ### Models
 
-#### Null + Full Models
+```{r models}
+# linear model, we know this is wrong, not continuous variable (discrete)
+scmod1 <- lm(nr_seeds ~ treatment + species + total_nr_infl, data = seedcount_subset)
+
+# generalized linear model with Poisson distribution; assumption : variance = mean
+scmod2 <- glm(nr_seeds ~ treatment + species + total_nr_infl, data = seedcount_subset, family = "poisson")
+
+# generalized linear model with negative binomial distribution; glm.nb assumes nb dist.; appropriate for over dispersion, variance > mean
+scmod3 <- glm.nb(nr_seeds ~ treatment + species + total_nr_infl, data = seedcount_subset)
+```
+
+```{r model-residuals}
+#| fig.height: 6
+#| fig.width: 8
+#| fig.align: center
+
+# check diagnostics, use darma b/c GLM don't follow same assumptions, simulation of residuals
+simulateResiduals(scmod1, plot = TRUE)
+simulateResiduals(scmod2, plot = TRUE) # look better but significant deviation, residuals are over-dispersed
+simulateResiduals(scmod3, plot = TRUE)
+```
 
 ## Results
 
