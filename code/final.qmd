@@ -20,6 +20,52 @@ Disturbance is a major factor determining the plant community structure of ecolo
 
 ## Methods
 
+### Set-up: Loading Needed Packages
+
+```{r load-packages}
+library(tidyverse)
+library(here)
+library(janitor)
+library(ggeffects)
+library(performance)
+library(naniar) 
+library(flextable) 
+library(car)
+library(broom)
+library(dplyr)
+library(corrplot)
+library(AICcmodavg)
+library(GGally)
+```
+
+### Data Collection + Organization
+
+```{r read-in-data}
+ # data was originally a txt file. wouldn't convert to csv properly
+inUrl1  <- "https://pasta.lternet.edu/package/data/eml/knb-lter-sev/208/102459/a063411c03e4baef6707862466685442" 
+infile1 <- tempfile()
+try(download.file(inUrl1,infile1,method="curl"))
+if (is.na(file.size(infile1))) download.file(inUrl1,infile1,method="auto")
+ seeds <-read.csv(infile1,header=F 
+          ,skip=1
+            ,sep=","  
+        , col.names=c(
+                    "mnd",     
+                    "dir",     
+                    "loc",     
+                    "species",     
+                    "seeds"    ), check.names=TRUE) %>% 
+   select(loc, seeds) # select columns of interest
+```
+
+### Missing Data
+
+```{r missing-data-visualization}
+gg_miss_var(seeds) +
+  theme_classic() +
+  labs(caption = "There are no missing data observations for rat mound locations and seed count.")
+```
+
 ## Results 
 
 ## References
@@ -37,6 +83,45 @@ Koontz, T. L., & Simpson, H. L. (2010). The composition of seed banks on kangaro
 Climate-change induced alterations in environmental conditions in the alpine tundra has led to "shrubification," the expansion of woody shrubs. Shrubification is thought to change microclimatic conditions that could lead to changes in plant community composition, including seed count and weight (Seaver, 2022). Both of these factors, especially seed weight, are significant because seed weight is generally assumed to be an ecologically important life history trait in plants because it influences both dispersal ability and seedling establishment (Gross & Kromer, 1986). Additionally, seed count can be a way to determine fitness and reproductive success (Zimmerman, 1980). It could be useful to find how certain characteristics vary seed count because they could impact reproductive success in plant communities. If certain factors make reproductive success decline, it could bring harm to impacted plant communities especially those containing endangered species. The questions I am trying to answer are how seed count varies with plot type (shrub or open), plant species, and total number of inflorescences as well as what is the simplest model that explains seed count. The hypothesis being tested is that seed count does not vary with plot type.
 
 ## Methods
+
+### Set-up: Loading Needed Packages
+
+```{r loading-packages}
+library(tidyverse)
+library(here)
+library(janitor)
+library(ggeffects)
+library(performance)
+library(naniar) 
+library(flextable) 
+library(car)
+library(broom)
+library(dplyr)
+library(corrplot)
+library(AICcmodavg)
+library(GGally)
+```
+
+### Data Collection + Organization
+
+```{r read-data}
+seedcount <- read_csv(here("data", "knb-lter-nwt", "shrubstudy_seed_ctwt.ms.data.csv")) %>% 
+  clean_names() %>% 
+  select(treatment, species, total_nr_infl, nr_seeds)
+```
+
+### Missing Data
+
+```{r missing-data-visual}
+gg_miss_var(seedcount) +
+  labs(caption = "There are no missing values for treatment, species, and total inflorescences, but a significant number for seed count.") +
+  theme_classic()
+```
+
+```{r drop-NA-subset}
+seedcount_subset <- seedcount %>% 
+  drop_na(nr_seeds) # get rid of NA values
+```
 
 ## Results
 
