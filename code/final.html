@@ -99,7 +99,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#introduction-1" id="toc-introduction-1" class="nav-link" data-scroll-target="#introduction-1">Introduction</a></li>
   <li><a href="#methods-1" id="toc-methods-1" class="nav-link" data-scroll-target="#methods-1">Methods</a>
   <ul class="collapse">
-  <li><a href="#set-up-loading-needed-packages-completed-in-problem-1" id="toc-set-up-loading-needed-packages-completed-in-problem-1" class="nav-link" data-scroll-target="#set-up-loading-needed-packages-completed-in-problem-1">Set-up: Loading Needed Packages (Completed in Problem 1)</a></li>
+  <li><a href="#set-up-loading-needed-packages-1" id="toc-set-up-loading-needed-packages-1" class="nav-link" data-scroll-target="#set-up-loading-needed-packages-1">Set-up: Loading Needed Packages</a></li>
   <li><a href="#data-collection-organization-1" id="toc-data-collection-organization-1" class="nav-link" data-scroll-target="#data-collection-organization-1">Data Collection + Organization</a></li>
   <li><a href="#missing-data-1" id="toc-missing-data-1" class="nav-link" data-scroll-target="#missing-data-1">Missing Data</a></li>
   <li><a href="#variable-relationships" id="toc-variable-relationships" class="nav-link" data-scroll-target="#variable-relationships">Variable Relationships</a></li>
@@ -206,6 +206,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>   <span class="fu">select</span>(loc, seeds) <span class="co"># select columns of interest</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
+<p>The sampling methods involved the random selection of 10 rat mound locations out of 25 total. Once mounds were selected they were marked with their given number and soil samples were taken. Processing of samples Soil samples were dried in an oven for 48 h at 50 degrees Celsius and were sifted to capture small seeds and exclude large particles. After being dried, sub-samples were taken and all seeds were tested for viability and counted (Herrera et al., 2001). The data was downloaded directly from the internet and was organized by selecting columns of interest: loc (rat mound location) and seeds (seed count).</p>
 </section>
 <section id="missing-data" class="level3">
 <h3 class="anchored" data-anchor-id="missing-data">Missing Data</h3>
@@ -220,6 +221,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><img src="final_files/figure-html/missing-data-visualization-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
+<p>For the data set with columns of interest, there was no missing data observations. No steps to remove missing values are necessary.</p>
 </section>
 <section id="tests" class="level3">
 <h3 class="anchored" data-anchor-id="tests">Tests</h3>
@@ -261,7 +263,7 @@ F = 14.994, num df = 3.00, denom df = 716.18, p-value = 1.786e-09</code></pre>
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>seeds_anova <span class="ot">&lt;-</span> seeds <span class="sc">%&gt;%</span> <span class="co"># standard anova for post-hoc test to see which groups are different</span></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aov</span>(<span class="at">formula =</span> seeds <span class="sc">~</span> loc)</span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="fu">TukeyHSD</span>(seeds_anova) <span class="co"># post-hoc test </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="fu">TukeyHSD</span>(seeds_anova) <span class="co"># post-hoc test</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>  Tukey multiple comparisons of means
@@ -279,6 +281,7 @@ I-D  -5.717949 -12.645870  1.209973 0.1463239
 I-E  -1.628205  -8.556127  5.299717 0.9306859</code></pre>
 </div>
 </div>
+<p>As stated earlier, the null hypothesis is that total seed number doesn’t differ between kangaroo rat mound locations while the alternative hypothesis is that total seed number does differ between kangaroo rat mound locations. To test the null hypothesis, we used analysis of variance (ANOVA). While it may not be the best to use for discrete data, it is good to use to determine if there is a significant difference between groups which is what we tried to do in this problem. We checked the assumptions using a qqplot to check normality as well as a Bartlett test to check homogeneity of variances, and found that the data follows neither of the assumptions. However, we were able to use a Welch’s one-way ANOVA because such test does not need equal variance (Dag et al., 2018). Although the normality assumption was not met, ANOVA is robust to normal distribution, so we decided to move forward. A classic ANOVA was used anyway in order to use Tukey Honest Significant Difference (HSD) to determine which groups are different from one another.</p>
 </section>
 </section>
 <section id="results" class="level2">
@@ -301,24 +304,29 @@ I-E  -1.628205  -8.556127  5.299717 0.9306859</code></pre>
 <p><img src="final_files/figure-html/visual-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
+<p>Using Welch’s one-way ANOVA, we obtained a p-value of less than 0.001, meaning that we were able to reject the null hypothesis, and state that total seed number does differ between kangaroo rat mound locations (F(3, 716) = 14.99, p &lt; 0.001, and alpha = 0.05). Using the Tukey HSD test, we found that location B was significantly different from locations D, E, and I. This is consistent with what is seen in the plot. While the plot showcases some difference in location D, we found that it is not a significant difference, and that locations D, E, and I did not significantly differ from one another using the Tukey HSD test. Overall, kangaroo rat mound location B significantly differs in total seed count, while D, E, and I do not.</p>
 </section>
 <section id="references" class="level2">
 <h2 class="anchored" data-anchor-id="references">References</h2>
+<p>Dag, O., Dolgun, A., Konar, N.M. (2018). onewaytests: An R Package for One-Way Tests in Independent Groups Designs. The R Journal, 10:1, 175-199.</p>
 <p>Gupta, A., Gupta, R., &amp; Singh, R. L. (2016). Microbes and environment.&nbsp;<em>Principles and Applications of Environmental Biotechnology for a Sustainable Future</em>, 43–84. <a href="https://doi.org/10.1007/978-981-10-1866-4_3" class="uri">https://doi.org/10.1007/978-981-10-1866-4_3</a></p>
 <p>Herrera, J., Ensz, K. L., &amp; Wilke, A. L. (2001). Stacking of seeds changes spoilage dynamics of food caches of the banner-tailed kangaroo rat (Dipodomys spectabilis).&nbsp;<em>Journal of Mammalogy</em>,&nbsp;<em>82</em>(2), 558–566. <a href="https://doi.org/10.1093/jmammal/82.2.558" class="uri">https://doi.org/10.1093/jmammal/82.2.558</a></p>
 <p>Koontz, T. L., &amp; Simpson, H. L. (2010). The composition of seed banks on kangaroo rat (Dipodomys spectabilis) mounds in a chihuahuan desert grassland.&nbsp;<em>Journal of Arid Environments</em>,&nbsp;<em>74</em>(10), 1156–1161. <a href="https://doi.org/10.1016/j.jaridenv.2010.03.008" class="uri">https://doi.org/10.1016/j.jaridenv.2010.03.008</a></p>
+<p><br>
+</p>
 </section>
 </section>
 <section id="problem-2" class="level1">
 <h1>Problem 2</h1>
 <section id="introduction-1" class="level2">
 <h2 class="anchored" data-anchor-id="introduction-1">Introduction</h2>
-<p>Climate-change induced alterations in environmental conditions in the alpine tundra has led to “shrubification,” the expansion of woody shrubs. Shrubification is thought to change microclimatic conditions that could lead to changes in plant community composition, including seed count and weight (Seaver, 2022). Both of these factors, especially seed weight, are significant because seed weight is generally assumed to be an ecologically important life history trait in plants because it influences both dispersal ability and seedling establishment (Gross &amp; Kromer, 1986). Additionally, seed count can be a way to determine fitness and reproductive success (Zimmerman, 1980). It could be useful to find how certain characteristics vary seed count because they could impact reproductive success in plant communities. If certain factors make reproductive success decline, it could bring harm to impacted plant communities especially those containing endangered species. The questions I am trying to answer are how seed count varies with plot type (shrub or open), plant species, and total number of inflorescences as well as what is the simplest model that explains seed count. The hypothesis being tested is that seed count does not vary with plot type.</p>
+<p>Climate-change induced alterations in environmental conditions in the alpine tundra has led to “shrubification,” the expansion of woody shrubs. Shrubification is thought to change microclimatic conditions that could lead to changes in plant community composition, including seed count and weight (Seaver, 2022). Both of these factors, especially seed weight, are significant because seed weight is generally assumed to be an ecologically important life history trait in plants because it influences both dispersal ability and seedling establishment (Gross &amp; Kromer, 1986). Additionally, seed count can be a way to determine fitness and reproductive success (Zimmerman, 1980). It could be useful to find how certain characteristics vary seed count because they could impact reproductive success in plant communities. If certain factors make reproductive success decline, it could bring harm to impacted plant communities especially those containing endangered species. The questions I am trying to answer are how seed count varies with plot type (shrub or open), plant species, and total number of inflorescences as well as what is the simplest model that explains seed count. The null hypothesis being tested here is that none of these factors impact seed count, while the alternative hypothesis is that at least one of the variables has an impact on seed count.</p>
 </section>
 <section id="methods-1" class="level2">
 <h2 class="anchored" data-anchor-id="methods-1">Methods</h2>
-<section id="set-up-loading-needed-packages-completed-in-problem-1" class="level3">
-<h3 class="anchored" data-anchor-id="set-up-loading-needed-packages-completed-in-problem-1">Set-up: Loading Needed Packages (Completed in Problem 1)</h3>
+<section id="set-up-loading-needed-packages-1" class="level3">
+<h3 class="anchored" data-anchor-id="set-up-loading-needed-packages-1">Set-up: Loading Needed Packages</h3>
+<p>This was completed in problem 1.</p>
 </section>
 <section id="data-collection-organization-1" class="level3">
 <h3 class="anchored" data-anchor-id="data-collection-organization-1">Data Collection + Organization</h3>
@@ -352,7 +360,7 @@ I-E  -1.628205  -8.556127  5.299717 0.9306859</code></pre>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">drop_na</span>(nr_seeds) <span class="co"># get rid of NA values</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<p>There is no missing data for the variables species, total number of inflorescences, and treatment (plot type - shrub or open). There are a considerable amount of missing observations in the variable regarding the total number of seeds.</p>
+<p>There is no missing data for the variables species, total number of inflorescences, and treatment (plot type - shrub or open). There are a considerable amount of missing observations in the variable regarding the total number of seeds. Using the drop_na function in the tidyr package, we got rid of those missing values (Wickham et al., 2023).</p>
 </section>
 <section id="variable-relationships" class="level3">
 <h3 class="anchored" data-anchor-id="variable-relationships">Variable Relationships</h3>
@@ -386,6 +394,7 @@ I-E  -1.628205  -8.556127  5.299717 0.9306859</code></pre>
 <p><img src="final_files/figure-html/pairs-plot-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
+<p>The Pearson correlation was used to measure the strength of the linear relationship between the variables. It has a value between -1 to 1, with a value of -1 meaning a total negative linear correlation, 0 being no correlation, and 1 meaning a total positive correlation. The variables don’t have a total linear correlation, but do have a very strong positive correlation, almost totally linear at a value of 0.92. Based on the pairs plot, the variables do share some sort of relationship for the most part. One noticeable relationship is that the total number of inflorescences and total seed count has a strong positive relationship.</p>
 </section>
 <section id="models-choosing-a-model" class="level3">
 <h3 class="anchored" data-anchor-id="models-choosing-a-model">Models + Choosing a Model</h3>
@@ -418,7 +427,7 @@ Scaled residual values: 0.684 0.524 0.708 0.448 0.624 0.672 0.576 0.656 0.632 0.
 </div>
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">simulateResiduals</span>(scmod2, <span class="at">plot =</span> <span class="cn">TRUE</span>) <span class="co"># look better but significant deviation, residuals are over-dispersed</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">simulateResiduals</span>(scmod2, <span class="at">plot =</span> <span class="cn">TRUE</span>) <span class="co"># do NOT meet the assumptions at all. significant deviation, residuals are over-dispersed</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <p><img src="final_files/figure-html/model-residuals-2.png" class="img-fluid" width="672"></p>
@@ -462,6 +471,9 @@ Abbreviations:
 Models ranked by AICc(x) </code></pre>
 </div>
 </div>
+<p>To determine if/how seed count varies with plot type (shrub or open), plant species, and total number of inflorescences, we fit multiple models. To start, we created a linear model. We were aware this is wrong because the data we worked with were not continuous variables (discrete), but used it for comparison to better models. The second model we used was a generalized linear model (GLM) with Poisson distribution. The assumption here was that the variance and mean are equal. The third model we used was a GLM with negative binomial distribution. The assumption here was that the variance is greater than the mean. We decided to use these models because generalized linear models tend to better suit discrete data compared to linear models.</p>
+<p>We checked the assumptions of all three of these models via simulation of residuals function in the DHARMa package (Hartig, 2022). The linear model met neither of the assumptions and had significant outliers and deviation. The Poisson distribution model met neither of the assumptions either, and was in fact worse than the linear model in that it also had over-dispersion. The negative binomial distribution model met most of the assumptions, but quantile deviations were detected. However, it definitely looked better than the other models, and other distributions did not fit with the of numerical data we had in the sense that the data was not within a certain range. Given this information, we decided to move forward by comparing the models.</p>
+<p>We selected a model using the model selection function from the MuMin package (Barton, 2023). This takes the best model out of the three models using Akaike's Information Criterion (AIC), which looks for the simplest model that explains the most variance, and gives it a weight of 1, meaning that there’s 100% chance of it being the best model out of the models being compared.</p>
 </section>
 </section>
 <section id="results-1" class="level2">
@@ -563,17 +575,21 @@ trigamma  0.5975110 0.5975110</code></pre>
 <div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">ggpredict</span>(scmod3, <span class="at">terms =</span> <span class="fu">c</span>(<span class="st">"treatment"</span>, <span class="st">"total_nr_infl"</span>, <span class="st">"species"</span>)), <span class="at">add.data =</span> <span class="cn">TRUE</span>)<span class="sc">+</span></span>
 <span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>()<span class="sc">+</span></span>
 <span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">y =</span> <span class="st">"Seed Count"</span>, <span class="at">x =</span> <span class="st">"Treatment"</span>, <span class="at">title =</span> <span class="st">"Seed Count Based on Total Inflorescences, Species, and Treatment"</span>, <span class="at">caption =</span> <span class="st">"The predicted seed count seems to be similar regardless of cover, a significant </span></span>
-<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a><span class="st">       effect is seen with total inflorescences and species, with a significant difference in the TRIDAS species."</span>) <span class="co"># more finalized plot</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a><span class="st">       effect is seen with total inflorescences in the TRIDAS species."</span>) <span class="co"># more finalized plot</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <p><img src="final_files/figure-html/visualization-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
+<p>Based on the model comparison, we found that the third model including all variables using negative binomial distribution was the best model for looking at how seed count varies with plot type (shrub or open), plant species, and total number of inflorescences (F(174, 181) = 1131, p &lt; 0.001, alpha = 0.025). The best model was chosen by doing a model comparison with three other models using model selection and picked the model with a weight of 1 (signifies that it is the best model). As the p-value falls below the significance level, we were able to reject the null hypothesis in favor of the alternative one, which states that at least one of the factors in the data set has some influence on seed count. In a biological sense, this means that multiple factors work together to influence seed count, possibly more than the ones incorporated into this model. In this case however, plot type (shrub or open), plant species, and total number of inflorescences interact in some way to impact seed count.</p>
 </section>
 <section id="references-1" class="level2">
 <h2 class="anchored" data-anchor-id="references-1">References</h2>
+<p>Bartoń K (2023). _MuMIn: Multi-Model Inference_. R package version 1.47.5, <a href="https://CRAN.R-project.org/package=MuMIn" class="uri">https://CRAN.R-project.org/package=MuMIn</a></p>
 <p>Gross, K. L., &amp; Kromer, M. L. (1986). Seed Weight Effects on Growth and Reproduction in Oenothera biennis L.&nbsp;<em>Bulletin of the Torrey Botanical Club</em>,&nbsp;<em>113</em>(3), 252–258. <a href="https://doi.org/10.2307/2996364" class="uri">https://doi.org/10.2307/2996364</a></p>
+<p>Hartig F (2022). _DHARMa: Residual Diagnostics for Hierarchical (Multi-Level / Mixed) Regression Models_. R package version 0.4.6, <a href="https://CRAN.R-project.org/package=DHARMa" class="uri">https://CRAN.R-project.org/package=DHARMa</a></p>
 <p>Seaver, M. 2022. Individual and community flowering phenology, seed counts and pollinator visitation rates in shrub and open plots across Niwot Ridge, 2019 - 2021. ver 1. Environmental Data Initiative. <a href="https://doi.org/10.6073/pasta/edc4ab2faf7dd96cd1deac1544d5f2b9" class="uri">https://doi.org/10.6073/pasta/edc4ab2faf7dd96cd1deac1544d5f2b9</a></p>
+<p>Wickham H, Vaughan D, Girlich M (2023). _tidyr: Tidy Messy Data_. R package version 1.3.0, <a href="https://CRAN.R-project.org/package=tidyr" class="uri">https://CRAN.R-project.org/package=tidyr</a></p>
 <p>Zimmerman, M. (1980). Reproduction in polemonium: Pre-dispersal seed predation.&nbsp;<em>Ecology</em>,&nbsp;<em>61</em>(3), 502–506. <a href="https://doi.org/10.2307/1937415" class="uri">https://doi.org/10.2307/1937415</a>&nbsp;</p>
 </section>
 </section>
