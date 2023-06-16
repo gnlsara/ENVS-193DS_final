@@ -74,7 +74,7 @@ if (is.na(file.size(infile1))) download.file(inUrl1,infile1,method="auto")
 ```{r missing-data-visualization}
 gg_miss_var(seeds) +
   theme_classic() +
-  labs(caption = "There are no missing data observations for rat mound locations and seed count.")
+  labs(title = "Missing Data for Seeds Data Set", caption = "There are no missing data observations for rat mound locations and seed count.") # added for more informative missing data plot
 ```
 
 ### Tests
@@ -85,17 +85,30 @@ stat_qq() +
 stat_qq_line(color = "red") + # compares data to normal distribution
 facet_wrap(~loc)
 
-bartlett.test(seeds ~ loc, data = seeds)
+bartlett.test(seeds ~ loc, data = seeds) # test for equal variances
 
 oneway.test(seeds ~ loc, data = seeds, var.equal = FALSE) #Welch's anova, does not need equal variance. 
 
 seeds_anova <- seeds %>% # standard anova for post-hoc test to see which groups are different
   aov(formula = seeds ~ loc)
 
-TukeyHSD(seeds_anova)
+TukeyHSD(seeds_anova) # post-hoc test 
 ```
 
 ## Results 
+
+```{r visual}
+ggplot(data = seeds, aes(x = loc, y = seeds, color =
+loc, shape = loc), na.rm = FALSE) +
+# jitter showing underlying data for summary statistics
+geom_jitter(data = seeds, aes(x = loc, y = seeds),
+alpha = 0.3, na.rm = FALSE) +
+scale_color_manual(values = c("B" = "darkgreen", "D" =
+"blue", "E" = "orange", "I" = "brown")) +
+  labs(x = "Location", y = "Number of Seeds", title = "Total Seed Numbers in Different Kangaroo Rat mound locations", caption = "Location B has a significantly higher seed count than the others. 
+       D is somewhat higher, and E & I have similar seed counts.") +
+  theme_classic()
+```
 
 ## References
 
@@ -113,23 +126,7 @@ Climate-change induced alterations in environmental conditions in the alpine tun
 
 ## Methods
 
-### Set-up: Loading Needed Packages
-
-```{r loading-packages}
-library(tidyverse)
-library(here)
-library(janitor)
-library(ggeffects)
-library(performance)
-library(naniar) 
-library(flextable) 
-library(car)
-library(broom)
-library(dplyr)
-library(corrplot)
-library(AICcmodavg)
-library(GGally)
-```
+### Set-up: Loading Needed Packages (Completed in Problem 1)
 
 ### Data Collection + Organization
 
@@ -178,7 +175,7 @@ ggpairs(seedcount_pairs) + # creates pairs plot
   labs(title = "Relationships Between Variables", caption = "There is some sort of relationship that all the variables have with each other.")
 ```
 
-### Models
+### Models + Choosing a Model
 
 ```{r models}
 # linear model, we know this is wrong, not continuous variable (discrete)
@@ -224,10 +221,6 @@ r.squaredGLMM(scmod3) # only look at delta, amount of variance = 43%
 ```
 
 ```{r visualization}
-#| fig.width: 12
-#| fig.height: 10
-#| out.width: 90%
-#| fig.align: center
 
 plot(ggpredict(scmod3, terms = c("treatment", "total_nr_infl")), add.data = TRUE)
 
@@ -235,7 +228,6 @@ plot(ggpredict(scmod3, terms = c("treatment", "total_nr_infl", "species")), add.
   theme_classic()+
   labs(y = "Seed Count", x = "Treatment", title = "Seed Count Based on Total Inflorescences, Species, and Treatment", caption = "The predicted seed count seems to be similar regardless of cover, a significant 
        effect is seen with total inflorescences and species, with a significant difference in the TRIDAS species.")
-# cover has no significant effect on salamander count, but mined status and species do
 ```
 
 ## References
