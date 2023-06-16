@@ -189,14 +189,10 @@ scmod3 <- glm.nb(nr_seeds ~ treatment + species + total_nr_infl, data = seedcoun
 ```
 
 ```{r model-residuals}
-#| fig.height: 6
-#| fig.width: 8
-#| fig.align: center
-
 # check diagnostics, use darma b/c GLM don't follow same assumptions, simulation of residuals
 simulateResiduals(scmod1, plot = TRUE)
 simulateResiduals(scmod2, plot = TRUE) # look better but significant deviation, residuals are over-dispersed
-simulateResiduals(scmod3, plot = TRUE)
+simulateResiduals(scmod3, plot = TRUE) # deviation but definitely looks better than other models
 ```
 
 ```{r choosing-model}
@@ -211,13 +207,12 @@ scmod3
 
 # summary (z value = test stat based on z dist.)
 summary(scmod3)
-  # cover is potentially not significant, sppDM, sppEC-L as well keeping everything else constant
-# confidence intervals
-confint(scmod3)
+# species GEUROS, KOBMYO, MINOBT not significant when keeping everything else constant
+
+confint(scmod3) # confidence intervals
 
 # adjusted R2
-r.squaredGLMM(scmod3) # only look at delta, amount of variance = 43%
-# fairly low due to 3 different predictors
+r.squaredGLMM(scmod3) # only look at delta, amount of variance = 68%
 ```
 
 ```{r visualization}
