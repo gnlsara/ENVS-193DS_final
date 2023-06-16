@@ -77,6 +77,24 @@ gg_miss_var(seeds) +
   labs(caption = "There are no missing data observations for rat mound locations and seed count.")
 ```
 
+### Tests
+
+```{r anova}
+ggplot(data = seeds, aes(sample = seeds)) +
+stat_qq() +
+stat_qq_line(color = "red") + # compares data to normal distribution
+facet_wrap(~loc)
+
+bartlett.test(seeds ~ loc, data = seeds)
+
+oneway.test(seeds ~ loc, data = seeds, var.equal = FALSE) #Welch's anova, does not need equal variance. 
+
+seeds_anova <- seeds %>% # standard anova for post-hoc test to see which groups are different
+  aov(formula = seeds ~ loc)
+
+TukeyHSD(seeds_anova)
+```
+
 ## Results 
 
 ## References
@@ -188,6 +206,8 @@ simulateResiduals(scmod3, plot = TRUE)
 MuMIn::model.sel(scmod1, scmod2, scmod3) # 100% chance of best model = 1 (weight)
 ```
 
+## Results
+
 ```{r summaries}
 # model object
 scmod3
@@ -212,11 +232,11 @@ r.squaredGLMM(scmod3) # only look at delta, amount of variance = 43%
 plot(ggpredict(scmod3, terms = c("treatment", "total_nr_infl")), add.data = TRUE)
 
 plot(ggpredict(scmod3, terms = c("treatment", "total_nr_infl", "species")), add.data = TRUE)+
-  theme_classic()
+  theme_classic()+
+  labs(y = "Seed Count", x = "Treatment", title = "Seed Count Based on Total Inflorescences, Species, and Treatment", caption = "The predicted seed count seems to be similar regardless of cover, a significant 
+       effect is seen with total inflorescences and species, with a significant difference in the TRIDAS species.")
 # cover has no significant effect on salamander count, but mined status and species do
 ```
-
-## Results
 
 ## References
 
