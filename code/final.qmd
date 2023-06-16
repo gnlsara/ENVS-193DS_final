@@ -217,12 +217,10 @@ r.squaredGLMM(scmod3) # only look at delta, amount of variance = 68%
 
 ```{r visualization}
 
-plot(ggpredict(scmod3, terms = c("treatment", "total_nr_infl")), add.data = TRUE)
-
 plot(ggpredict(scmod3, terms = c("treatment", "total_nr_infl", "species")), add.data = TRUE)+
   theme_classic()+
   labs(y = "Seed Count", x = "Treatment", title = "Seed Count Based on Total Inflorescences, Species, and Treatment", caption = "The predicted seed count seems to be similar regardless of cover, a significant 
-       effect is seen with total inflorescences and species, with a significant difference in the TRIDAS species.")
+       effect is seen with total inflorescences and species, with a significant difference in the TRIDAS species.") # more finalized plot
 ```
 
 ## References
